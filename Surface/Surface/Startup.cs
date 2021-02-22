@@ -41,8 +41,11 @@ namespace Surface
             services.AddDbContext<MainContext>(opts => opts.UseSqlServer(Configuration["ConnectionStrings:DefaultConnection"]));
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddScoped<IRepository<Employee, int>, Repository<Employee, int>>();
+            services.AddScoped<IEmployeeOrchestrator, EmployeeOrchestrator>();
             services.AddScoped<IRepository<User, int>, Repository<User, int>>();
             services.AddScoped<IUserOrchestrator, UserOrchestrator>();
+
             services.AddHttpContextAccessor();
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
